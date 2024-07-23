@@ -1,11 +1,42 @@
 package org.gene.myfirstservice.service;
-
+//
+//import org.gene.myfirstservice.converter.ItemConverter;
+//import org.gene.myfirstservice.dto.ItemDto;
+//import org.gene.myfirstservice.repository.ItemRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class ItemService {
+//
+//    @Autowired
+//    private ItemRepository itemRepository;
+//
+//    @Autowired
+//    private ItemConverter itemConverter;
+//
+//    public ItemDto getItemById(Long id) {
+//        return itemConverter.entityToDto(itemRepository.getItemById(id));
+//    }
+//
+//    public ItemDto createItem(ItemDto itemDto) {
+//        return itemConverter.entityToDto(itemRepository.createItem(itemConverter.dtoToEntity(itemDto)));
+//    }
+//
+//    public ItemDto updateItem(Long id, ItemDto itemDto) {
+//        return itemConverter.entityToDto(itemRepository.updateItem(id, itemConverter.dtoToEntity(itemDto)));
+//    }
+//
+//    public void deleteItem(Long id) {
+//        itemRepository.deleteItem(id);
+//    }
+//}
 import org.gene.myfirstservice.converter.ItemConverter;
 import org.gene.myfirstservice.dto.ItemDto;
+import org.gene.myfirstservice.entity.ItemEntity;
 import org.gene.myfirstservice.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 @Service
 public class ItemService {
 
@@ -16,18 +47,28 @@ public class ItemService {
     private ItemConverter itemConverter;
 
     public ItemDto getItemById(Long id) {
-        return itemConverter.entityToDto(itemRepository.getItemById(id));
+        ItemEntity itemEntity = itemRepository.findById(id).orElse(null);
+        return itemConverter.entityToDto(itemEntity);
     }
 
     public ItemDto createItem(ItemDto itemDto) {
-        return itemConverter.entityToDto(itemRepository.createItem(itemConverter.dtoToEntity(itemDto)));
+        ItemEntity itemEntity = itemConverter.dtoToEntity(itemDto);
+        ItemEntity savedItem = itemRepository.save(itemEntity);
+        return itemConverter.entityToDto(savedItem);
     }
 
     public ItemDto updateItem(Long id, ItemDto itemDto) {
-        return itemConverter.entityToDto(itemRepository.updateItem(id, itemConverter.dtoToEntity(itemDto)));
+        ItemEntity itemEntity = itemRepository.findById(id).orElse(null);
+        if (itemEntity != null) {
+            itemEntity.setName(itemDto.getName());
+            itemEntity.setPrice(itemDto.getPrice());
+            ItemEntity updatedItem = itemRepository.save(itemEntity);
+            return itemConverter.entityToDto(updatedItem);
+        }
+        return null;
     }
 
     public void deleteItem(Long id) {
-        itemRepository.deleteItem(id);
+        itemRepository.deleteById(id);
     }
 }
