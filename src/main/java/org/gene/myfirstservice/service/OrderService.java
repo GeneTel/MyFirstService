@@ -60,6 +60,7 @@ package org.gene.myfirstservice.service;
 
 import org.gene.myfirstservice.converter.OrderConverter;
 import org.gene.myfirstservice.dto.OrderDto;
+import org.gene.myfirstservice.dto.ProductDto;
 import org.gene.myfirstservice.entity.OrderEntity;
 import org.gene.myfirstservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,12 @@ public class OrderService {
 
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
+    }
+
+    public OrderDto addProductToOrder(Long orderId, ProductDto productDto) {
+        return null;
+    }
+
+    public void removeProductFromOrder(Long orderId, Long productId) {
     }
 }

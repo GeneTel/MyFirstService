@@ -12,21 +12,21 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     Map<Long, OrderEntity> orders = new HashMap<>();
 
-    public default OrderEntity getOrderById(Long id) {
+    default OrderEntity getOrderById(Long id) {
         return orders.get(id);
     }
 
-    public default OrderEntity createOrder(OrderEntity orderEntity) {
+    default OrderEntity createOrder(OrderEntity orderEntity) {
         orders.put(orderEntity.getId(), orderEntity);
         return orderEntity;
     }
 
-    public default OrderEntity updateOrder(Long id, OrderEntity orderEntity) {
+    default OrderEntity updateOrder(Long id, OrderEntity orderEntity) {
         orders.put(id, orderEntity);
         return orderEntity;
     }
 
-    public default void deleteOrder(Long id) {
+    default void deleteOrder(Long id) {
         orders.remove(id);
     }
 }

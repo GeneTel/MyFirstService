@@ -13,21 +13,21 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     Map<Long, ProductEntity> products = new HashMap<>();
 
-    public default ProductEntity getProductById(Long id) {
+    default ProductEntity getProductById(Long id) {
         return products.get(id);
     }
 
-    public default ProductEntity createProduct(ProductEntity productEntity) {
+    default ProductEntity createProduct(ProductEntity productEntity) {
         products.put(productEntity.getId(), productEntity);
         return productEntity;
     }
 
-    public default ProductEntity updateProduct(Long id, ProductEntity productEntity) {
+    default ProductEntity updateProduct(Long id, ProductEntity productEntity) {
         products.put(id, productEntity);
         return productEntity;
     }
 
-    public default void deleteProduct(Long id) {
+    default void deleteProduct(Long id) {
         products.remove(id);
     }
 }
