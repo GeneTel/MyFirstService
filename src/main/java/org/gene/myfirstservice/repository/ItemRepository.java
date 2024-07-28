@@ -13,21 +13,21 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
     Map<Long, ItemEntity> items = new HashMap<>();
 
-    public default ItemEntity getItemById(Long id) {
+    default ItemEntity getItemById(Long id) {
         return items.get(id);
     }
 
-    public default ItemEntity createItem(ItemEntity itemEntity) {
+    default ItemEntity createItem(ItemEntity itemEntity) {
         items.put(itemEntity.getId(), itemEntity);
         return itemEntity;
     }
 
-    public default ItemEntity updateItem(Long id, ItemEntity itemEntity) {
+    default ItemEntity updateItem(Long id, ItemEntity itemEntity) {
         items.put(id, itemEntity);
         return itemEntity;
     }
 
-    public default void deleteItem(Long id) {
+    default void deleteItem(Long id) {
         items.remove(id);
     }
 }
