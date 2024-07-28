@@ -1,24 +1,16 @@
 package org.gene.myfirstservice.dto;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Setter
+@Getter
 public class OrderDto {
+
     private Long id;
+    private String customerName;
+    private Double totalPrice;
     private List<ItemDto> items;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<ItemDto> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemDto> items) {
-        this.items = items;
-    }
 }
